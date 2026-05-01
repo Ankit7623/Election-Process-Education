@@ -27,9 +27,7 @@ export default function AuthPages({ onLogin }) {
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-navy-500 to-civic-500 flex items-center justify-center shadow-xl shadow-navy-500/25 mb-4">
             <Landmark className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-text-primary">
-            Election Ed Dashboard
-          </h1>
+
           <p className="text-sm text-text-secondary mt-2">
             Your personal guide to the voting process
           </p>
