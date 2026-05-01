@@ -115,6 +115,12 @@ app.use(cors({
 }))
 app.use(express.json({ limit: '1mb' }))
 
+// ─── Serve built frontend in production ──────────────────────
+const distPath = path.join(__dirname, 'dist')
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath))
+}
+
 // ─── Security Request Logger Middleware ──────────────────────
 // Logs all incoming requests with timestamp, IP, and body info
 const logDir = path.join(__dirname, 'logs')
@@ -276,9 +282,14 @@ app.post('/api/chat/reset', (req, res) => {
   res.json({ message: 'Chat session reset successfully', sessionId })
 })
 
-// ─── 404 handler ─────────────────────────────────────────────
+// ─── Catch-all: serve frontend for client-side routing ───────
 app.use((req, res) => {
-  res.status(404).json({ error: 'Endpoint not found' })
+  const indexPath = path.join(__dirname, 'dist', 'index.html')
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath)
+  } else {
+    res.status(404).json({ error: 'Endpoint not found' })
+  }
 })
 
 // ─── Global error handler ────────────────────────────────────

@@ -31,5 +31,8 @@ COPY --from=build /app/dist ./dist
 EXPOSE 3001
 
 ENV NODE_ENV=production
+ENV PORT=3001
 
+# Pass GEMINI_API_KEY at runtime:
+# docker run -p 3001:3001 -e GEMINI_API_KEY=your_key election-dashboard
 CMD ["node", "index.js"]
